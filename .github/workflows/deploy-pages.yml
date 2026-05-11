@@ -29,6 +29,7 @@ jobs:
         with:
           node-version: 20
           cache: npm
+          cache-dependency-path: my-website/package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -54,7 +55,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: develop-dist
-          path: dist
+          path: my-website/dist
 
   deploy-staging:
     if: github.ref == 'refs/heads/staging' && github.event_name == 'push'
@@ -76,6 +77,7 @@ jobs:
         with:
           node-version: 20
           cache: npm
+          cache-dependency-path: my-website/package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -93,7 +95,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: my-website/dist
 
       - name: Deploy to GitHub Pages
         id: deployment
